@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { fetchInvoiceById } from '@/app/lib/data';
+import { updateInvoice } from '@/app/lib/actions';
 
 export default async function EditInvoiceForm({
   invoiceId,
@@ -19,9 +20,10 @@ export default async function EditInvoiceForm({
   customers: CustomerField[];
 }) {
   const invoice = await fetchInvoiceById(invoiceId);
+  const updateInvoiceWithId = updateInvoice.bind(null, invoiceId);
 
   return (
-    <form>
+    <form action={updateInvoiceWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
