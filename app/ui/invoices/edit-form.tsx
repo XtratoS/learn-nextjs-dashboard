@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { fetchInvoiceById } from '@/app/lib/data';
 import { updateInvoice } from '@/app/lib/actions';
+import { notFound } from 'next/navigation';
 
 export default async function EditInvoiceForm({
   invoiceId,
@@ -20,6 +21,11 @@ export default async function EditInvoiceForm({
   customers: CustomerField[];
 }) {
   const invoice = await fetchInvoiceById(invoiceId);
+
+  if (!invoice) {
+    notFound();
+  }
+
   const updateInvoiceWithId = updateInvoice.bind(null, invoiceId);
 
   return (
